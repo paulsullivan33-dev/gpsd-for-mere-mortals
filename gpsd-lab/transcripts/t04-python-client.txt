@@ -1,0 +1,6 @@
+$ gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea &
+$ python3 client_python.py 3
+TPV 1: time=2026-06-15T12:00:02.000Z mode=3 lat=39.5 lon=-98.499813333 altHAE=305.0 speed=8.0 m/s track=90.0 deg
+TPV 2: time=2026-06-15T12:00:03.000Z mode=3 lat=39.5 lon=-98.49972 altHAE=305.0 speed=8.0 m/s track=90.0 deg
+TPV 3: time=2026-06-15T12:00:04.000Z mode=3 lat=39.5 lon=-98.499626667 altHAE=305.0 speed=8.0 m/s track=90.0 deg
+printed 3 TPV reports

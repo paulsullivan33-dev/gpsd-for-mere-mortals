@@ -1,0 +1,25 @@
+$ gpsfake -p -1 -c 0.02 fixture-sky.nmea  (full output counted, head shown)
+lines total: 888
+TPV lines:   82
+SKY lines:   320
+raw NMEA lines echoed: 480
+--- first 14 lines
+{"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","readonly":"true","activated":"2026-11-07T22:16:11.163Z","native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+{"class":"WATCH","enable":true,"json":true,"nmea":true,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:16:11.483Z","native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}
+$GPGGA,120000.00,3930.0000,N,09830.0000,W,1,09,0.9,320.0,M,-15.0,M,,*5E
+{"class":"TPV","device":"/dev/pts/2","mode":3,"lat":39.500000000,"lon":-98.500000000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"magvar":4.1,"geoidSep":-15.000,"eph":17.100}
+{"class":"SKY","device":"/dev/pts/2","hdop":0.90,"uSat":9}
+$GPGSA,A,3,5,7,9,12,15,18,21,24,30,,,,1.6,0.9,1.3*0D
+{"class":"TPV","device":"/dev/pts/2","mode":3,"lat":39.500000000,"lon":-98.500000000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epv":29.900,"magvar":4.1,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"SKY","device":"/dev/pts/2","hdop":0.90,"pdop":1.60,"vdop":1.30,"uSat":9}
+$GPGSV,3,1,11,05,43,060,42,07,63,110,45,09,32,155,37,12,54,200,42*71
+$GPGSV,3,2,11,15,71,250,44,18,26,295,37,21,50,330,39,24,64,020,43*77
+$GPGSV,3,3,11,30,36,085,39,14,20,175,32,27,24,270,33*4B
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"nSat":11,"uSat":9,"satellites":[{"PRN":5,"gnssid":0,"svid":5,"az":60.0,"el":43.0,"ss":42.0,"used":true},{"PRN":7,"gnssid":0,"svid":7,"az":110.0,"el":63.0,"ss":45.0,"used":true},{"PRN":9,"gnssid":0,"svid":9,"az":155.0,"el":32.0,"ss":37.0,"used":true},{"PRN":12,"gnssid":0,"svid":12,"az":200.0,"el":54.0,"ss":42.0,"used":true},{"PRN":15,"gnssid":0,"svid":15,"az":250.0,"el":71.0,"ss":44.0,"used":true},{"PRN":18,"gnssid":0,"svid":18,"az":295.0,"el":26.0,"ss":37.0,"used":true},{"PRN":21,"gnssid":0,"svid":21,"az":330.0,"el":50.0,"ss":39.0,"used":true},{"PRN":24,"gnssid":0,"svid":24,"az":20.0,"el":64.0,"ss":43.0,"used":true},{"PRN":30,"gnssid":0,"svid":30,"az":85.0,"el":36.0,"ss":39.0,"used":true},{"PRN":14,"gnssid":0,"svid":14,"az":175.0,"el":20.0,"ss":32.0,"used":false},{"PRN":27,"gnssid":0,"svid":27,"az":270.0,"el":24.0,"ss":33.0,"used":false}]}
+--- the first TPV line that carries a time, speed and track
+{"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:00.000Z","ept":0.005,"lat":39.500000000,"lon":-98.500000000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+--- gpsfake stderr
+Processing fixture-sky.nmea
+SHM: shmctl(20) for IPC_RMID failed, Operation not permitted(1)

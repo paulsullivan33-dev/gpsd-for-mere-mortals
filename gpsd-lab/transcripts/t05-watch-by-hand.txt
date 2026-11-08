@@ -1,0 +1,18 @@
+$ gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea &
+$ python3 watch_by_hand.py 5
+<<< {"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+>>> ?VERSION;
+<<< {"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+>>> ?DEVICES;
+<<< {"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:17:00.142Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+>>> ?WATCH={"enable":true,"json":true};
+<<< {"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:17:00.142Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+<<< {"class":"WATCH","enable":true,"json":true,"nmea":false,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+<<< {"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:02.000Z","ept":0.005,"lat":39.500000000,"lon":-98.499813333,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+<<< {"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+<<< {"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+<<< {"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:03.000Z","ept":0.005,"lat":39.500000000,"lon":-98.499720000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+>>> ?WATCH={"enable":false};
+<<< {"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:17:05.257Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+<<< {"class":"WATCH","enable":false,"json":true,"nmea":false,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+shown: 2 TPV, 2 SKY reports

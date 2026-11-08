@@ -1,0 +1,48 @@
+GPSD for Mere Mortals - the lab's distilled commands
+====================================================
+
+Build (chapter 3; scratch and prefix are the lab's, adjust to yours)
+
+  python3 -m venv ~/workspace/.batch-351-363/scratch-gpsd/venv
+  ~/workspace/.batch-351-363/scratch-gpsd/venv/bin/pip install scons
+  curl -O https://download-mirror.savannah.gnu.org/releases/gpsd/gpsd-3.26.1.tar.gz
+  sha256sum gpsd-3.26.1.tar.gz
+      # dc7e465968c1540e61bc57c7586d6a57a0047212a014efdad348f907bc2e0990
+  tar xzf gpsd-3.26.1.tar.gz && cd gpsd-3.26.1
+  ../venv/bin/scons prefix=$HOME/workspace/.batch-351-363/scratch-gpsd/prefix \
+      python_shebang=/usr/bin/python3 -j4
+  ../venv/bin/scons prefix=$HOME/workspace/.batch-351-363/scratch-gpsd/prefix \
+      python_shebang=/usr/bin/python3 install
+  export PATH=<prefix>/bin:<prefix>/sbin:$PATH    # gpsfake finds gpsd on PATH
+
+Fixture sky (chapter 4)
+
+  cd gpsd-lab
+  python3 make_nmea.py --out fixture-sky.nmea
+  python3 make_nmea.py --out fixture-sky-2.nmea --lat 39.5100 \
+      --lon -98.4900 --speed 4.0 --alt 318.0 --start 43260
+  python3 check_checksums.py fixture-sky.nmea fixture-sky-2.nmea
+
+First fix, no daemon of your own (chapter 5)
+
+  gpsfake -p -1 -c 0.02 fixture-sky.nmea
+
+A real daemon on 2947, fed by gpsfake (chapters 6-9)
+
+  gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea &
+  gpspipe -w -n 12 127.0.0.1:2947        # JSON reports
+  gpspipe -r -n 8 127.0.0.1:2947         # pseudo-NMEA back out
+  python3 client_python.py 3             # the gps Python bindings
+  python3 watch_by_hand.py 5             # ?WATCH over a raw socket
+  cgps -s 127.0.0.1:2947                 # curses view, needs a terminal
+  gpsmon -a 127.0.0.1:2947               # raw watch, deprecated tool
+
+Two devices, one daemon (chapter 11)
+
+  gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea fixture-sky-2.nmea &
+  gpspipe -w -n 20 127.0.0.1:2947
+
+No device at all (chapter 11; second port is the lab's extra instance)
+
+  gpsd -N -n -D 2 -S 18092 -F <scratch>/run/ctl.sock /dev/no-such-receiver-xyz
+  # then, by raw socket to 127.0.0.1:18092:  ?DEVICES;   ?POLL;

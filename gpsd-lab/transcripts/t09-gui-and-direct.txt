@@ -1,0 +1,19 @@
+$ xgps 127.0.0.1:2947   (no display in this sandbox)
+xgps: ERROR: DISPLAY not set
+$ echo $DISPLAY
+DISPLAY='<unset>'
+$ gpsmon -a -n fixture-sky.nmea   (a log file is not a device)
+  gpsmon parses a bare filename as a server spec, not a serial
+  device; the lab has no real serial receiver to open directly,
+  so gpsmon direct-from-device was NOT run. Its via-daemon form
+  is transcript t06.
+gpsmon:WARN: gpsmon is  deprecated and long obsolete.
+gpsmon:WARN: gpsmon is not a full gpsd client.
+gpsmon:WARN: gpsmon is a poorly maintained developer tool
+gpsmon:WARN: Only developers should use gpsmon.
+Read error from device
+gpsmon: tcp://fixture-sky.nmea:2947
+$ build-time warnings about the GUI clients (from the scons build log)
+WARNING: xgps and xgpsspeed are missing runtime dependencies
+WARNING: ubxtool and zerk are missing optional runtime module serial
+WARNING: AsciiDoctor not found. Some documentation and html will not be built.

@@ -1,0 +1,27 @@
+$ gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea &   (starts a gpsd on 2947)
+$ timeout 15 gpspipe -w -n 12 127.0.0.1:2947
+{"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:16:28.389Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+{"class":"WATCH","enable":true,"json":true,"nmea":false,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+{"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:02.000Z","ept":0.005,"lat":39.500000000,"lon":-98.499813333,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"nSat":11,"uSat":9,"satellites":[{"PRN":5,"gnssid":0,"svid":5,"az":60.0,"el":43.0,"ss":43.0,"used":true},{"PRN":7,"gnssid":0,"svid":7,"az":110.0,"el":64.0,"ss":44.0,"used":true},{"PRN":9,"gnssid":0,"svid":9,"az":155.0,"el":31.0,"ss":37.0,"used":true},{"PRN":12,"gnssid":0,"svid":12,"az":200.0,"el":55.0,"ss":42.0,"used":true},{"PRN":15,"gnssid":0,"svid":15,"az":250.0,"el":71.0,"ss":44.0,"used":true},{"PRN":18,"gnssid":0,"svid":18,"az":295.0,"el":27.0,"ss":37.0,"used":true},{"PRN":21,"gnssid":0,"svid":21,"az":330.0,"el":49.0,"ss":39.0,"used":true},{"PRN":24,"gnssid":0,"svid":24,"az":20.0,"el":64.0,"ss":44.0,"used":true},{"PRN":30,"gnssid":0,"svid":30,"az":85.0,"el":36.0,"ss":40.0,"used":true},{"PRN":14,"gnssid":0,"svid":14,"az":175.0,"el":20.0,"ss":32.0,"used":false},{"PRN":27,"gnssid":0,"svid":27,"az":270.0,"el":24.0,"ss":32.0,"used":false}]}
+{"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:03.000Z","ept":0.005,"lat":39.500000000,"lon":-98.499720000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+{"class":"SKY","device":"/dev/pts/2","gdop":2.68,"hdop":0.90,"pdop":1.60,"tdop":1.48,"xdop":0.68,"ydop":0.78,"vdop":1.30,"uSat":9}
+$ gpspipe -r (pseudo-NMEA out of the daemon), 8 packets
+{"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:16:29.292Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+{"class":"WATCH","enable":true,"json":false,"nmea":true,"raw":0,"scaled":false,"timing":false,"split24":false,"pps":false}
+$GPGSV,3,1,11,05,43,060,43,07,64,110,44,09,31,155,37,12,55,200,42*74
+$GPGSV,3,2,11,15,70,250,44,18,27,295,37,21,49,330,39,24,65,020,44*79
+$GPGSV,3,3,11,30,36,085,40,14,20,175,32,27,24,270,32*44
+$GPRMC,120004.00,A,3930.0000,N,09829.9776,W,15.55,90.0,150626,1.5,W,A*01
+$GPGGA,120005.00,3930.0000,N,09829.9721,W,1,09,0.9,320.0,M,-15.0,M,,*5E
+$ gpsfake log
+Processing fixture-sky.nmea
+gpsfake: log cycle of fixture-sky.nmea begins.
+SHM: shmctl(18) for IPC_RMID failed, Operation not permitted(1)

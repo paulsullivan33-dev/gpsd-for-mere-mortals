@@ -1,0 +1,26 @@
+$ gpsd -N -n -D 2 -S 18092 -F <scratch>/run/ctl.sock /dev/no-such-receiver-xyz &
+$ raw socket to 127.0.0.1:18092 - greeting, ?DEVICES;, ?POLL;
+greeting: {"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+?DEVICES; -> {"class":"DEVICES","devices":[]}
+?POLL; -> {"class":"POLL","time":"2026-11-07T22:17:36.514Z","active":0,"tpv":[],"gst":[],"sky":[]}
+$ gpsd log (that run, in full)
+gpsd:WARN: PPS: o=priority setting failed. Time accuracy will be degraded, Operation not permitted(1)
+gpsd:ERROR: SER: stat(/dev/no-such-receiver-xyz) failed: No such file or directory(2)
+gpsd:ERROR: initial GPS device /dev/no-such-receiver-xyz open failed
+gpsd:ERROR: stat(/dev/no-such-receiver-xyz) failed, errno No such file or directory(2)
+gpsd:ERROR: SER: stat(/dev/no-such-receiver-xyz) failed: No such file or directory(2)
+gpsd:ERROR: /dev/no-such-receiver-xyz: device activation failed, freeing device.
+gpsd:CLIENT: => client(0) len 88: {"class":"VERSION","release":"3.26.1","rev":"3.26.1","proto_major":3,"proto_minor":15}
+
+gpsd:CLIENT: <= client(0): ?DEVICES;
+
+gpsd:CLIENT: => client(0) len 34: {"class":"DEVICES","devices":[]}
+
+gpsd:CLIENT: <= client(0): ?POLL;
+
+gpsd:CLIENT: => client(0) len 90: {"class":"POLL","time":"2026-11-07T22:17:36.514Z","active":0,"tpv":[],"gst":[],"sky":[]}
+
+gpsd:CLIENT: <= client(0): eof read
+gpsd:WARN: received terminating signal 15.
+gpsd:WARN: exiting.
+SHM: shmctl(19) for IPC_RMID failed, Operation not permitted(1)

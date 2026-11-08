@@ -1,0 +1,93 @@
+The lab - one source build, two written skies, no GPS hardware
+==============================================================
+
+There is no GPS receiver in this lab, and the guide never
+pretends otherwise. Everything position-shaped in the
+transcripts came from a written NMEA log replayed through
+the real daemon. That is a test sky, not the sky (chapter 15).
+
+  * Obtaining gpsd: the build machine already carried an
+    Ubuntu gpsd package, 3.25 (gpsd, cgps and gpsmon in
+    /usr/bin and /usr/sbin), but gpsfake, gpspipe and xgps
+    were MISSING (transcript t00). The lab therefore built
+    the whole suite from the official source release
+    gpsd-3.26.1.tar.gz, downloaded from gpsd's official
+    Savannah mirror
+    (download-mirror.savannah.gnu.org/releases/gpsd/),
+    sha256 dc7e465968c1540e61bc57c7586d6a57a0047212a014
+    efdad348f907bc2e0990, 5,909,502 bytes.
+
+  * Build: SCons 4.11.1, installed with pip into a Python
+    venv in the scratch folder
+    (~/workspace/.batch-351-363/scratch-gpsd/), never /tmp.
+    Build command, run in the unpacked tarball:
+      scons prefix=<scratch>/prefix \
+            python_shebang=/usr/bin/python3 -j4
+    then the same with "install" appended. Nothing was
+    installed system-wide by hand; one honest exception:
+    scons install placed the Python "gps" package into
+    /usr/local/lib/python3.12/dist-packages/gps/ (the Python
+    interpreter's own site directory), ignoring the prefix.
+    The chapters say so where it matters.
+    Build warnings, kept not hidden: "xgps and xgpsspeed are
+    missing runtime dependencies"; "ubxtool and zerk are
+    missing optional runtime module serial" (pyserial);
+    "AsciiDoctor not found" so the project's own HTML docs
+    were not built. The ncurses clients DID build: the build
+    log links cgps and gpsmon with -lncurses (the headers
+    were present), and both ran (t00, t06).
+
+  * Ports: the daemon under test listened on its own
+    protocol port, 2947, on all interfaces gpsfake chose --
+    the lab only ever connected to it as 127.0.0.1:2947.
+    Port 2947 is gpsd's own default; using it is the
+    specific-port exemption in the series' builder notes,
+    recorded here as required. The one standalone extra
+    gpsd instance (absent-device test, t08) listened on
+    127.0.0.1:18092. Nothing else was bound.
+
+  * The fixture skies (gpsd-lab/fixture-sky.nmea and
+    fixture-sky-2.nmea) were WRITTEN by gpsd-lab/make_nmea.py,
+    not recorded: 80 one-second epochs each, 480 sentences
+    (GGA, GSA, three GSV, RMC per epoch), checksums computed
+    by the generator and re-verified by check_checksums.py:
+    480 checked, 0 bad, per file (t01).
+    Sky 1: a rectangle over invented open-farmland
+    coordinates starting 39.5000, -98.5000, 8.0 m/s, legs
+    east/north/west/south, altitude 320 m, fictional date
+    15 Jun 2026 from 12:00:00 UTC, 11 satellites in view,
+    9 used. Sky 2: same shape from 39.5100, -98.4900 at
+    4.0 m/s, altitude 318 m, starting 12:01:00. No real
+    person, vehicle, address, or place is modelled.
+
+  * gpsfake PATH finding (t02 driver comment): gpsfake
+    starts "gpsd" by searching PATH. The lab's first pipe
+    run forgot the prefix and silently used the system
+    gpsd 3.25 -- the VERSION line in its output said 3.25.
+    Every kept transcript was re-run with the built prefix
+    first on PATH and reports 3.26.1.
+
+  * Sandbox quirks kept on record: gpsfake/gpsd print
+    "SHM: shmctl(...) for IPC_RMID failed, Operation not
+    permitted" when cleaning up shared memory in this
+    sandbox; clients were unaffected. gpsmon prints four
+    deprecation warnings and odd TOFF lines when reading
+    the fixture (its "real" clock is the replay, its
+    system clock is the sandbox's); both are quoted as-is
+    in t06.
+
+  * Evidence (gpsd-lab/transcripts/): t00 system vs built
+    versions; t01 fixture generation and checksums; t02
+    gpsfake pipe mode, singleshot: 888 lines, 82 TPV,
+    320 SKY, 480 raw NMEA echoed; t03 gpspipe -w (JSON TPV,
+    mode 3) and -r (pseudo-NMEA) against a gpsfake-fed
+    daemon on 2947; t04 the Python-bindings client (3 TPV);
+    t05 the ?WATCH handshake by hand (VERSION, DEVICES,
+    WATCH, TPV, SKY, watch off); t06 cgps screen scrape
+    (Seen 11/Used 9) and gpsmon -a via the daemon; t07 two
+    logs, two devices (/dev/pts/2 and /dev/pts/3),
+    interleaved TPVs at 8.0 and 4.0 m/s; t08 a standalone
+    gpsd on 18092 with a nonexistent device: ERROR lines,
+    DEVICES [], POLL active 0; t09 xgps (DISPLAY not set)
+    and gpsmon direct-from-file (parsed as a server spec),
+    the two things that did not run.

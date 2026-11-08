@@ -1,0 +1,12 @@
+$ gpsfake -P 2947 -n -c 0.1 fixture-sky.nmea fixture-sky-2.nmea &
+$ timeout 15 gpspipe -w -n 20 127.0.0.1:2947 | grep DEVICES/TPV (first 7)
+{"class":"DEVICES","devices":[{"class":"DEVICE","path":"/dev/pts/2","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:17:31.349Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00},{"class":"DEVICE","path":"/dev/pts/3","driver":"NMEA0183","readonly":"true","activated":"2026-11-07T22:17:31.249Z","flags":1,"native":0,"bps":4800,"parity":"N","stopbits":1,"cycle":1.00}]}
+{"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:00.000Z","ept":0.005,"lat":39.500000000,"lon":-98.500000000,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"TPV","device":"/dev/pts/3","mode":3,"time":"2026-06-15T12:01:00.000Z","ept":0.005,"lat":39.510000000,"lon":-98.490000000,"altHAE":303.0000,"altMSL":318.0000,"alt":318.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":4.002,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"TPV","device":"/dev/pts/2","mode":3,"time":"2026-06-15T12:00:01.000Z","ept":0.005,"lat":39.500000000,"lon":-98.499906667,"altHAE":305.0000,"altMSL":320.0000,"alt":320.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":8.000,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+{"class":"TPV","device":"/dev/pts/3","mode":3,"time":"2026-06-15T12:01:01.000Z","ept":0.005,"lat":39.510000000,"lon":-98.489953333,"altHAE":303.0000,"altMSL":318.0000,"alt":318.0000,"epx":10.231,"epy":11.734,"epv":29.900,"track":90.0000,"magtrack":88.5000,"magvar":-1.5,"speed":4.002,"climb":0.000,"eps":23.47,"epc":59.80,"geoidSep":-15.000,"eph":17.100,"sep":30.400}
+$ gpsfake log
+Processing fixture-sky.nmea,fixture-sky-2.nmea
+gpsfake: log cycle of fixture-sky.nmea begins.
+gpsfake: log cycle of fixture-sky-2.nmea begins.
+SHM: shmctl(18) for IPC_RMID failed, Operation not permitted(1)

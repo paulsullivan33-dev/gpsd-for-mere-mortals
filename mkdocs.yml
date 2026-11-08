@@ -1,0 +1,30 @@
+site_name: GPSD for Mere Mortals
+site_description: One daemon talks to your GPS receiver so every other program can just listen. Replaying a recorded sky with gpsfake, reading real fixes as JSON, the WATCH handshake by hand, and what a fix can and cannot promise.
+site_url: https://paulsullivan33-dev.github.io/gpsd-for-mere-mortals/
+copyright: 'Part of <a href="https://paulsullivan33-dev.github.io/mere-mortals/">For Mere Mortals</a> · Text <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, code MIT'
+
+# Guides live at the repo root (nice for GitHub browsing).
+# The deploy workflow copies them into docs/ before building.
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - What GPSD Is: what-gpsd-is.md
+  - The Moving Parts: the-moving-parts.md
+  - Installing GPSD: installing-gpsd.md
+  - Building a Test Sky: building-a-test-sky.md
+  - Your First Fix: your-first-fix.md
+  - A Real Daemon on Port 2947: a-real-daemon.md
+  - Reading with gpspipe: reading-with-gpspipe.md
+  - The WATCH Handshake by Hand: the-watch-handshake.md
+  - Other Clients: other-clients.md
+  - Sky, Errors and Fix Modes: sky-errors-and-fix-modes.md
+  - More Than One Device: more-than-one-device.md
+  - Time and PPS: time-and-pps.md
+  - Real Jobs: real-jobs.md
+  - The Neighbours: the-neighbours.md
+  - Limits: limits.md
+  - Troubleshooting: troubleshooting.md
+  - Glossary: glossary.md
+  - Writing Criteria: criteria.md

@@ -1,0 +1,41 @@
+$ command -v gpsd gpsfake gpspipe cgps gpsmon (system, before the build)
+/usr/sbin/gpsd
+MISSING gpsfake
+MISSING gpspipe
+/usr/bin/cgps
+/usr/bin/gpsmon
+MISSING xgps
+$ /usr/sbin/gpsd -V   (the Ubuntu package that was already here)
+/usr/sbin/gpsd: 3.25 (revision 3.25)
+$ ls of the source tarball the lab downloaded
+gpsd-3.26.1.tar.gz  from https://download-mirror.savannah.gnu.org/releases/gpsd/
+sha256 dc7e465968c1540e61bc57c7586d6a57a0047212a014efdad348f907bc2e0990
+$ scons --version (scons installed in a Python venv in the scratch folder)
+SCons by Steven Knight et al.:
+	SCons: v4.11.1.b97f32b9adab83a96af767ec1d7dc8d7a41c7c74, Wed, 26 Aug 2026 21:18:42 -0700, by bdbaddog on M1Dog2021
+	SCons path: ['/home/hatch/workspace/.batch-351-363/scratch-gpsd/venv/lib/python3.12/site-packages/SCons']
+$ built gpsd -V / gpspipe -V / gpsfake -V / cgps -V / gpsmon -V
+gpsd: 3.26.1 (revision 3.26.1)
+gpspipe: 3.26.1 (revision 3.26.1)
+gpsfake: Version 3.26.1
+cgps: 3.26.1 (revision 3.26.1)
+gpsmon: 3.26.1 (revision 3.26.1)
+$ python3 -c "import gps" (bindings the source build installed)
+gps module: /usr/local/lib/python3.12/dist-packages/gps/__init__.py
+$ gpsd --help, first lines, and the compiled-in feature tail
+usage: gpsd [OPTIONS] device...
+
+  Options include: 
+  -?, -h, --help            = help message
+  -b, --readonly            = bluetooth-safe: open data sources read-only
+  -D, --debug integer       = set debug level, default 0 
+  -F, --sockfile sockfile   = specify control socket location, default none
+  -f, --framing FRAMING     = fix device framing to FRAMING (8N1, 8O1, etc.)
+				PPS
+# n: mode switch, b: speed switch, c: rate switch, *: non-NMEA packet type.
+# Control socket for hotplug notifications enabled.
+# KPPS DIS-abled.
+# Netfeed enabled.
+# NTRIP enabled.
+# Shared memory export enabled.
+# systemd socket activation enabled.
